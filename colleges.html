@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- awesome fontfamily -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .btn-primary {
+            background-color: #1c1d1e; /* Blue color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+    
+        .btn-primary:hover {
+            background-color: #5a6268; /* Darker blue on hover */
+        }
+    
+        .btn-secondary {
+            background-color: #131313; /* Gray color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+    
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker gray on hover */
+        }
+    </style>
+    
+</head>
+<!-- body -->
+<!-- body -->
+<body class="main-layout inner_page">
+    <!-- loader  -->
+    <div class="loader_bg">
+        <div class="loader"><img src="images/loading.gif" alt="" /></div>
+    </div>
+    <!-- end loader -->
+    <div id="mySidepanel" class="sidepanel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="index.html">Home</a>
+        <a class="active" href="colleges.html">Create College</a>
+        <a href="classwise.html">Class Wise</a>
+        <a href="studentwise.html">Student Wise</a>
+        <a href="template.html">Templates</a>
+     </div>
+    <!-- header -->
+    <header>
+        <!-- header inner -->
+        <div class="head-top">
+            <div class="container-fluid">
+                <div class="row d_flex align-items-center justify-content-between">
+                    <!-- Menu Button on the Left Side -->
+                    <div class="col-auto">
+                        <button class="openbtn" onclick="openNav()">
+                            <img src="images/menu_btn.png" />
+                        </button>
+                    </div>
+                    <!-- User and Search Icons on the Right Side -->
+                    <div class="col-auto">
+                        <ul class="email d-flex justify-content-end align-items-center m-0 p-0">
+                            <li class="me-3">
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end header -->
+    
+  <br>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Select an Action</h2>
+                <div class="mt-4">
+                    <a href="college_creation.html" class="btn btn-primary me-2">Create New College</a>
+                    <a href="php/view_colleges.php" class="btn btn-secondary">View Colleges</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer">
+           <div class="copyright text_align_center">
+              <div class="container">
+                 <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <p>Tech Fifo Innovations | Copyrights© 2024 All Rights Reserved.<br> Designed and developed by Tech Fifo Innovations</p>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </footer>
+    
+ 
+    <!-- Javascript files-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+
+</html>
