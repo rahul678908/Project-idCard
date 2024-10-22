@@ -55,13 +55,16 @@
     </style>
 </head>
 <body class="main-layout inner_page">
+    <!-- <div class="loader_bg">
+         <div class="loader"><img src="../images/loading.gif" alt="" /></div>
+      </div> -->
 <div id="mySidepanel" class="sidepanel">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="index.html">Home</a>
-        <a class="active" href="colleges.html">Create College</a>
-        <a href="classwise.html">Class Wise</a>
-        <a href="studentwise.html">Student Wise</a>
-        <a href="template.html">Templates</a>
+        <a href="../index.html">Home</a>
+        <a class="active" href="../schools.html">Create school</a>
+        <a href="../classwise.html">Class Wise</a>
+        <a href="../studentwise.html">Student Wise</a>
+        <a href="../template.html">Templates</a>
      </div>
 
     <!-- header -->
@@ -99,7 +102,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage text_align_center">
-                        <h2>Colleges List</h2>
+                        <h2>Schools List</h2>
                     </div>
                 </div>
             </div>
@@ -111,17 +114,17 @@
                         include('config.php');
 
                         // Retrieve data from the database
-                        $query = "SELECT id, college_name, college_address, college_email, college_contact FROM colleges";
+                        $query = "SELECT id, school_name, school_address, school_email, school_contact FROM schools";
                         $result = $conn->query($query);
 
                         if ($result->num_rows > 0) {
-                            echo '<table id="collegeTable" class="display">';
+                            echo '<table id="schoolTable" class="display">';
                             echo '<thead>';
                             echo '<tr>';
-                            echo '<th>College Name</th>';
-                            echo '<th>College Address</th>';
-                            echo '<th>College Email</th>';
-                            echo '<th>College Contact</th>';
+                            echo '<th>School Name</th>';
+                            echo '<th>School Address</th>';
+                            echo '<th>School Email</th>';
+                            echo '<th>School Contact</th>';
                             echo '<th>Actions</th>';
                             echo '</tr>';
                             echo '</thead>';
@@ -129,10 +132,10 @@
 
                             while ($row = $result->fetch_assoc()) {
                                 echo '<tr>';
-                                echo '<td data-id="' . $row['id'] . '" data-column="college_name">' . htmlspecialchars($row['college_name']) . '</td>';
-                                echo '<td data-id="' . $row['id'] . '" data-column="college_address">' . htmlspecialchars($row['college_address']) . '</td>';
-                                echo '<td data-id="' . $row['id'] . '" data-column="college_email">' . htmlspecialchars($row['college_email']) . '</td>';
-                                echo '<td data-id="' . $row['id'] . '" data-column="college_contact">' . htmlspecialchars($row['college_contact']) . '</td>';
+                                echo '<td data-id="' . $row['id'] . '" data-column="school_name">' . htmlspecialchars($row['school_name']) . '</td>';
+                                echo '<td data-id="' . $row['id'] . '" data-column="school_address">' . htmlspecialchars($row['school_address']) . '</td>';
+                                echo '<td data-id="' . $row['id'] . '" data-column="school_email">' . htmlspecialchars($row['school_email']) . '</td>';
+                                echo '<td data-id="' . $row['id'] . '" data-column="school_contact">' . htmlspecialchars($row['school_contact']) . '</td>';
                                 echo '<td>
                                         <span class="action-button edit-button" data-id="' . $row['id'] . '">Edit</span>
                                         <span class="action-button save-button" data-id="' . $row['id'] . '" style="display:none;">Save</span>
@@ -143,7 +146,7 @@
                             echo '</tbody>';
                             echo '</table>';
                         } else {
-                            echo '<p>No colleges found.</p>';
+                            echo '<p>No schools found.</p>';
                         }
 
                         $conn->close();
@@ -184,7 +187,7 @@
     <script>
         $(document).ready(function() {
             // Initialize DataTables
-            $('#collegeTable').DataTable();
+            $('#schoolTable').DataTable();
 
             // Edit button click handler
             $('.edit-button').click(function() {
@@ -205,10 +208,10 @@
                 var row = $(this).closest('tr');
 
                 // Get the updated values
-                var collegeName = row.find('td[data-id="' + id + '"][data-column="college_name"]').text();
-                var collegeAddress = row.find('td[data-id="' + id + '"][data-column="college_address"]').text();
-                var collegeEmail = row.find('td[data-id="' + id + '"][data-column="college_email"]').text();
-                var collegeContact = row.find('td[data-id="' + id + '"][data-column="college_contact"]').text();
+                var schoolName = row.find('td[data-id="' + id + '"][data-column="school_name"]').text();
+                var schoolAddress = row.find('td[data-id="' + id + '"][data-column="school_address"]').text();
+                var schoolEmail = row.find('td[data-id="' + id + '"][data-column="school_email"]').text();
+                var schoolContact = row.find('td[data-id="' + id + '"][data-column="school_contact"]').text();
 
                 // Send AJAX request to update the database
                 $.ajax({
@@ -216,10 +219,10 @@
                     type: 'POST',
                     data: {
                         id: id,
-                        collegeName: collegeName,
-                        collegeAddress: collegeAddress,
-                        collegeEmail: collegeEmail,
-                        collegeContact: collegeContact
+                        schoolName: schoolName,
+                        schoolAddress: schoolAddress,
+                        schoolEmail: schoolEmail,
+                        schoolContact: schoolContact
                     },
                     success: function(response) {
                         alert(response);
@@ -232,7 +235,7 @@
                         row.find('.edit-button').show();
                     },
                     error: function() {
-                        alert('An error occurred while updating the college.');
+                        alert('An error occurred while updating the school.');
                     }
                 });
             });

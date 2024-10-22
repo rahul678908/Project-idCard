@@ -344,7 +344,6 @@ ul.email li a {
      left: 0;
      right: 0;
 }
-
 .club {
      text-align: center;
 }
@@ -358,7 +357,7 @@ ul.email li a {
 }
 
 .club h1 {
-     color: #fff;
+     color: #0a0a0a;
      font-size: 50px;
      line-height: 50px;
      text-transform: uppercase;
@@ -367,7 +366,7 @@ ul.email li a {
 }
 
 .club p {
-     color: #fff;
+     color: #0a0a0a;
      line-height: 25px;
      font-weight: 400;
      font-size: 17px;
@@ -665,24 +664,15 @@ ul.email li a {
 
 
 
-
 .footer {
-     bottom: 0%;
-     
      padding-top: 90px;
      margin-top: 90px;
+     border-top: #222323 solid 1px;
+     padding: 20px 0px;
+     color:#000000;
+     bottom: 0;
+
 }
-
-.footer h3 {
-     color: #ffffff;
-     font-size: 26px;
-     font-weight: bold;
-     line-height: 25px;
-     text-align: center;
-}
-
-
-/** end footer **/
 
 
 /*- - ener page css--*/

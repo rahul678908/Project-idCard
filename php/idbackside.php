@@ -7,7 +7,7 @@ $allowedTypes = array('jpg', 'jpeg', 'png', 'gif'); // Allowed image types
 $maxFileSize = 2 * 1024 * 1024; // 2MB file size limit
 
 // Retrieve template data from POST request
-$templateData = isset($_POST['back_template']) ? $_POST['back_template'] : '';
+$templateData = isset($_POST['back_design']) ? $_POST['back_design'] : '';
 
 // Ensure the template data is not empty
 if (!empty($templateData)) {
@@ -15,7 +15,7 @@ if (!empty($templateData)) {
     $templateData = json_decode($templateData, true);
     
     // Check if the background image exists in the template data
-    $backgroundImage = isset($templateData[count($templateData)-1]['back_design']) ? $templateData[count($templateData)-1]['back_design'] : null;
+    $backgroundImage = isset($templateData[count($templateData)-1]['back_image']) ? $templateData[count($templateData)-1]['back_image'] : null;
 
     // Prepare the template data for storage (excluding the background image)
     $fieldsData = json_encode(array_filter($templateData, function($field) {
@@ -54,7 +54,7 @@ if (!empty($templateData)) {
     }
 
     // SQL to insert template data and background image into the database
-    $sql = "INSERT INTO idcard_template (back_template, back_design, created_at) VALUES (?, ?, NOW())";
+    $sql = "INSERT INTO idcard_template (back_design, back_image, created_at) VALUES (?, ?, NOW())";
     $stmt = $conn->prepare($sql);
 
     // Bind the template data and background image path to the query

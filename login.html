@@ -104,33 +104,7 @@
         </div>
     </div>
 
-    <!-- <script>
-        function submitLogin() {
-            let username = document.getElementById('username').value;
-            let password = document.getElementById('password').value;
-            alert(username);
-            alert(password);
-
-            if (!password) {
-                alert('Please enter your password.');
-                return;
-            }
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'php/login.php', true);
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    if (xhr.responseText === 'success') {
-                        window.location.href = 'index.html';  // Redirect on successful login
-                    } else {
-                        alert('Invalid password. Please try again.');
-                    }
-                }
-            };
-            xhr.send('username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password));
-        }
-    </script> -->
+          
 </body>
 
 </html>
