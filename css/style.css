@@ -344,7 +344,6 @@ ul.email li a {
      left: 0;
      right: 0;
 }
-
 .club {
      text-align: center;
 }
@@ -358,7 +357,7 @@ ul.email li a {
 }
 
 .club h1 {
-     color: #000000;
+     color: #0a0a0a;
      font-size: 50px;
      line-height: 50px;
      text-transform: uppercase;
@@ -367,7 +366,7 @@ ul.email li a {
 }
 
 .club p {
-     color: #000000;
+     color: #0a0a0a;
      line-height: 25px;
      font-weight: 400;
      font-size: 17px;
@@ -665,68 +664,15 @@ ul.email li a {
 
 
 
-
 .footer {
-     bottom: 0%;
-     
-     padding-top: 220px;
-     margin-top: 220px;
+     padding-top: 90px;
+     margin-top: 90px;
+     border-top: #222323 solid 1px;
+     padding: 20px 0px;
+     color:#000000;
+     bottom: 0;
+
 }
-
-.footer h3 {
-     color: #ffffff;
-     font-size: 26px;
-     font-weight: bold;
-     line-height: 25px;
-     text-align: center;
-}
-
-html, body {
-     height: 10%; /* Make sure the body takes the full height */
-     margin: 0;    /* Remove default margin */
- }
- 
- .main-layout {
-     display: flex;
-     flex-direction: column; /* Stack elements vertically */
-     min-height: 100vh;     /* Ensure the layout takes at least the full height of the viewport */
- }
- 
- .banner_main {
-     flex: 1; /* Allow the banner section to take available space */
- }
- 
- html, body {
-     height: 100%; /* Full height for the page */
-     margin: 0;
-     padding: 0;
- }
- 
- body {
-     display: flex;
-     flex-direction: column;
-     min-height: 100vh; /* Ensures body takes full viewport height */
- }
- 
- .content {
-     flex: 1; /* Pushes footer to the bottom if there's space */
- }
- 
- footer {
-     width: 100%;
-     text-align: center;
-     padding: 15px 0;
- }
- 
- footer hr {
-     margin: 0; /* Ensures the line has no extra spacing */
-     border: 0;
-     border-top: 1px solid #ddd; /* Light gray horizontal line */
- }
- 
-
-
-/** end footer **/
 
 
 /*- - ener page css--*/
