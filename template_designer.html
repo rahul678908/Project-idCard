@@ -183,7 +183,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
-        $(function() {
+$(function() {
     let currentFont = 'Arial';
     let currentFontSize = '12px';
     let currentColor = '#000000';
@@ -191,21 +191,19 @@
     let backBackgroundImage = '';
 
     // Populate school select dropdown (fetching from the database)
-    // Populate school select dropdown (fetching from the database)
-$.ajax({
-    url: 'php/getschools.php', // Ensure this path is correct
-    type: 'GET',
-    success: function(data) {
-        const schools = JSON.parse(data);
-        schools.forEach(function(school) {
-            $('#school-select').append(new Option(school.school_name, school.id));
-        });
-    },
-    error: function(xhr, status, error) {
-        console.error("Error fetching schools: " + error);
-    }
-});
-
+    $.ajax({
+        url: 'php/getschools.php', // Ensure this path is correct
+        type: 'GET',
+        success: function(data) {
+            const schools = JSON.parse(data);
+            schools.forEach(function(school) {
+                $('#school-select').append(new Option(school.school_name, school.id));
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching schools: " + error);
+        }
+    });
 
     // Make the fields draggable
     $(".draggable").draggable({
@@ -301,119 +299,147 @@ $.ajax({
         }
     });
 
-    // Change font
-    $('#font').on('change', function() {
-        currentFont = $(this).val();
-    });
+    // Update styles on font, size, or color change
+    $('#font, #font-size, #font-color').on('change', function() {
+        currentFont = $('#font').val();
+        currentFontSize = $('#font-size').val();
+        currentColor = $('#font-color').val();
 
-    // Change font size
-    $('#font-size').on('change', function() {
-        currentFontSize = $(this).val();
-    });
-
-    // Change font color
-    $('#font-color').on('input', function() {
-        currentColor = $(this).val();
-    });
-
-    // Upload front background image
-    $('#upload-image-front').on('change', function(event) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            frontBackgroundImage = e.target.result; // Get the base64 image data
-            $('#front-id-card-template').css('background-image', 'url(' + frontBackgroundImage + ')');
-        };
-        reader.readAsDataURL(this.files[0]);
-    });
-
-    // Upload back background image
-    $('#upload-image-back').on('change', function(event) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            backBackgroundImage = e.target.result; // Get the base64 image data
-            $('#back-id-card-template').css('background-image', 'url(' + backBackgroundImage + ')');
-        };
-        reader.readAsDataURL(this.files[0]);
-    });
-
-    // Save both templates when the button is clicked
-    $('#save-template').on('click', function() {
-        var frontTemplateData = [];
-        $('#front-id-card-template .field').each(function() {
-            frontTemplateData.push({
-                field: $(this).text(),
-                position: {
-                    top: $(this).position().top,
-                    left: $(this).position().left
-                },
-                style: {
-                    fontFamily: $(this).css('fontFamily'),
-                    fontSize: $(this).css('fontSize'),
-                    color: $(this).css('color')
-                }
-            });
+        // Update all existing fields with the new styles
+        $('.id-card-template .field').css({
+            fontFamily: currentFont,
+            fontSize: currentFontSize,
+            color: currentColor
         });
+    });
 
-        var backTemplateData = [];
-        $('#back-id-card-template .field').each(function() {
-            backTemplateData.push({
-                field: $(this).text(),
-                position: {
-                    top: $(this).position().top,
-                    left: $(this).position().left
-                },
-                style: {
-                    fontFamily: $(this).css('fontFamily'),
-                    fontSize: $(this).css('fontSize'),
-                    color: $(this).css('color')
-                }
-            });
-        });
+    // Handle front image upload
+    $('#upload-front-image').on('change', function(event) {
+        var file = this.files[0];
+        var formData = new FormData();
+        formData.append('image', file);
+        formData.append('type', 'front');
 
-        // Include the background images in the template data
-        let frontImage = frontBackgroundImage || '';
-        let backImage = backBackgroundImage || '';
-
-        console.log("Front Template Data: ", frontTemplateData);
-        console.log("Back Template Data: ", backTemplateData);
-        console.log("Front Image: ", frontImage);
-        console.log("Back Image: ", backImage);
-        console.log("Selected School ID: ", $('#school-select').val());
-
-        // Send the template data to the server
         $.ajax({
-            url: 'php/saveTemplates.php',
+            url: 'php/upload_designs.php',
             type: 'POST',
-            data: {
-                front_template: JSON.stringify(frontTemplateData),
-                back_template: JSON.stringify(backTemplateData),
-                front_image: frontImage,
-                back_image: backImage,
-                school_id: $('#school-select').val() // Get selected school ID
-            },
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function(response) {
-                alert(response);
+                var result = JSON.parse(response);
+                if (result.status === 'success') {
+                    frontBackgroundImage = result.filePath;
+                    $('#front-id-card-template').css('background-image', 'url(' + frontBackgroundImage + ')');
+                } else {
+                    alert(result.message);
+                }
             },
             error: function(xhr, status, error) {
                 console.error("AJAX Error: " + error);
             }
         });
     });
+
+    // Handle back image upload
+    $('#upload-back-image').on('change', function(event) {
+        var file = this.files[0];
+        var formData = new FormData();
+        formData.append('image', file);
+        formData.append('type', 'back');
+
+        $.ajax({
+            url: 'php/upload_designs.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                var result = JSON.parse(response);
+                if (result.status === 'success') {
+                    backBackgroundImage = result.filePath;
+                    $('#back-id-card-template').css('background-image', 'url(' + backBackgroundImage + ')');
+                } else {
+                    alert(result.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error: " + error);
+            }
+        });
+    });
+
+    // Save both templates
+    // Save both templates when the button is clicked
+    // Save both templates when the button is clicked
+$('#save-template').on('click', function() {
+    var frontTemplateData = [];
+    $('#front-id-card-template .field').each(function() {
+        frontTemplateData.push({
+            field: $(this).text(),
+            position: {
+                top: $(this).position().top,
+                left: $(this).position().left
+            },
+            style: {
+                fontFamily: $(this).css('fontFamily'),
+                fontSize: $(this).css('fontSize'),
+                color: $(this).css('color')
+            }
+        });
+    });
+
+    var backTemplateData = [];
+    $('#back-id-card-template .field').each(function() {
+        backTemplateData.push({
+            field: $(this).text(),
+            position: {
+                top: $(this).position().top,
+                left: $(this).position().left
+            },
+            style: {
+                fontFamily: $(this).css('fontFamily'),
+                fontSize: $(this).css('fontSize'),
+                color: $(this).css('color')
+            }
+        });
+    });
+
+    // Include the background images in the template data
+    let frontImage = frontBackgroundImage || ''; // Ensure this is initialized
+    let backImage = backBackgroundImage || ''; // Ensure this is initialized
+
+    console.log("Front Template Data: ", frontTemplateData);
+    console.log("Back Template Data: ", backTemplateData);
+    console.log("Front Image: ", frontImage);
+    console.log("Back Image: ", backImage);
+    console.log("Selected School ID: ", $('#school-select').val());
+
+    // Send the template data to the server
+    $.ajax({
+        url: 'php/save_templates.php',
+        type: 'POST',
+        data: {
+            front_design: JSON.stringify(frontTemplateData), // Ensure correct key
+            back_design: JSON.stringify(backTemplateData), // Ensure correct key
+            front_image: frontImage, // Include the front image path
+            back_image: backImage, // Include the back image path
+            school_id: $('#school-select').val() // Get selected school ID
+        },
+        success: function(response) {
+            alert(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX Error: " + error);
+        }
+    });
 });
 
-       
+});
     </script>
 
     <footer>
-        <div class="footer">
-            <div class="container-fluid text_align_center">
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <p>Tech Fifo Innovations Copyrights© 2024 All Rights Reserved.<br>Designed and developed by Tech Fifo Innovations</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p>&copy; 2024 ID Card Template Designer. All Rights Reserved.</p>
     </footer>
 </body>
 </html>
